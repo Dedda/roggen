@@ -6,7 +6,7 @@ use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use dotenv::dotenv;
 use std::env;
-use self::models::{NewPost, Post};
+use self::models::NewPost;
 
 pub mod schema;
 pub mod models;

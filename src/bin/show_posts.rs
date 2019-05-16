@@ -1,8 +1,6 @@
 extern crate roggen;
 extern crate diesel;
 
-use self::roggen::*;
-use self::models::*;
 use self::diesel::prelude::*;
 use roggen::establish_connection;
 use roggen::models::Post;

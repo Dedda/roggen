@@ -3,7 +3,6 @@ extern crate diesel;
 
 use self::diesel::prelude::*;
 use self::roggen::*;
-use self::models::Post;
 use std::env::args;
 
 fn main() {
