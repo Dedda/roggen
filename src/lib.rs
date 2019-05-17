@@ -1,15 +1,26 @@
+#![feature(proc_macro_hygiene)]
+#![feature(decl_macro)]
+
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
+#[macro_use]
+extern crate maud;
+#[macro_use]
+extern crate rocket;
+
+use std::env;
 
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use dotenv::dotenv;
-use std::env;
+
 use self::models::NewPost;
 
-pub mod schema;
 pub mod models;
+pub mod schema;
+pub mod server;
+pub mod template;
 
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -32,4 +43,8 @@ pub fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -
         .values(&new_post)
         .execute(conn)
         .expect("Error saving new post")
+}
+
+pub fn start() {
+    server::ignite();
 }
