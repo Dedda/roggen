@@ -3,7 +3,6 @@ use maud::Markup;
 
 use crate::template;
 use rocket_contrib::serve::StaticFiles;
-use std::borrow::Cow;
 use rocket::http::RawStr;
 
 #[get("/")]

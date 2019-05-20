@@ -12,26 +12,28 @@ extern crate rocket;
 use std::env;
 
 use diesel::prelude::*;
-use diesel::sqlite::SqliteConnection;
+use diesel::pg::PgConnection;
 use dotenv::dotenv;
 
 use self::models::NewPost;
+use crate::models::Post;
 
+pub mod data;
 pub mod models;
 pub mod schema;
 pub mod server;
 pub mod template;
 
-pub fn establish_connection() -> SqliteConnection {
+pub fn establish_connection() -> PgConnection {
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL")
         .expect("DATABASE_URL must be set in .env");
-    SqliteConnection::establish(&database_url)
+    PgConnection::establish(&database_url)
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -> usize {
+pub fn create_post<'a>(conn: &PgConnection, title: &'a str, body: &'a str) -> Post {
     use schema::posts;
 
     let new_post = NewPost {
@@ -41,7 +43,7 @@ pub fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -
 
     diesel::insert_into(posts::table)
         .values(&new_post)
-        .execute(conn)
+        .get_result(conn)
         .expect("Error saving new post")
 }
 
