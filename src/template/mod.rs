@@ -1,9 +1,11 @@
 use maud::Markup;
+use crate::template::elements::Link;
 
 pub mod blog;
+pub mod elements;
 pub mod index;
 
-pub fn page(contents: Markup) -> Markup {
+pub fn page(title: &Link, contents: Markup) -> Markup {
     html! {
         html lang="de" {
             head {
@@ -12,7 +14,7 @@ pub fn page(contents: Markup) -> Markup {
             body {
                 script src="/js/jquery-1.11.3.min.js" {}
                 script src="/js/bootstrap.min.js" {}
-                (header())
+                (header(title))
                 (body_main(contents))
                 (footer())
             }
@@ -29,7 +31,7 @@ fn head() -> Markup {
     }
 }
 
-fn header() -> Markup {
+fn header(title: &Link) -> Markup {
     struct NavPage {
         path: &'static str,
         title: &'static str,
@@ -51,7 +53,7 @@ fn header() -> Markup {
                                 span class="icon-bar" {}
                             }
                         }
-                        a class="navbar-brand" href="/" { "roggen" }
+                        a class="navbar-brand" href=(title.href) { (title.title) }
                     }
                     div id="navbarCollapse" class="collapse navbar-collapse" {
                         ul class="nav navbar-nav" {

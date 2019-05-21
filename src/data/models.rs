@@ -4,27 +4,27 @@ pub trait BelongsToPost {
 }
 
 pub struct Image {
-    id: Option<i32>,
-    post: i32,
-    index: i32,
-    name: String,
-    caption: String,
-    file_name: String,
+    pub id: Option<i32>,
+    pub post: i32,
+    pub index: i32,
+    pub name: String,
+    pub caption: String,
+    pub file_name: String,
 }
 
 pub struct TextSection {
-    id: Option<i32>,
-    post: i32,
-    index: i32,
-    text: String,
+    pub id: Option<i32>,
+    pub post: i32,
+    pub index: i32,
+    pub text: String,
 }
 
 pub struct Heading {
-    id: Option<i32>,
-    post: i32,
-    index: i32,
-    text: String,
-    size: i8,
+    pub id: Option<i32>,
+    pub post: i32,
+    pub index: i32,
+    pub text: String,
+    pub size: i8,
 }
 
 pub enum PostPart {
@@ -34,8 +34,8 @@ pub enum PostPart {
 }
 
 pub struct Post {
-    id: Option<i32>
-
+    pub id: Option<i32>,
+    pub title: String,
 }
 
 impl BelongsToPost for Image {

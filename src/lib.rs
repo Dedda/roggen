@@ -7,6 +7,8 @@ extern crate dotenv;
 #[macro_use]
 extern crate maud;
 #[macro_use]
+extern crate lazy_static;
+#[macro_use]
 extern crate rocket;
 
 use std::env;
