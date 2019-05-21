@@ -8,6 +8,8 @@ extern crate dotenv;
 extern crate maud;
 #[macro_use]
 extern crate lazy_static;
+extern crate r2d2;
+extern crate r2d2_diesel;
 #[macro_use]
 extern crate rocket;
 
