@@ -6,15 +6,15 @@ use self::roggen::*;
 use std::env::args;
 
 fn main() {
-    use roggen::schema::posts::dsl::{posts, published};
+    use roggen::schema::post::dsl::{post, published};
 
     let id = args().nth(1).expect("publish_post requires a post id")
         .parse::<i32>().expect("Invalid ID");
     let connection = establish_connection();
 
-    let post = diesel::update(posts.find(id))
+    let posts = diesel::update(post.find(id))
         .set(published.eq(true))
         .execute(&connection)
         .expect(&format!("Unable to find post {}", id));
-    println!("Published {} posts", post);
+    println!("Published {} posts", posts);
 }

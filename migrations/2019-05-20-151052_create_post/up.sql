@@ -1,6 +1,6 @@
-CREATE TABLE posts (
+CREATE TABLE post (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL,
-  body TEXT NOT NULL,
-  published BOOLEAN NOT NULL DEFAULT 'f'
+  published BOOLEAN NOT NULL DEFAULT 'f',
+  blog VARCHAR NOT NULL
 )

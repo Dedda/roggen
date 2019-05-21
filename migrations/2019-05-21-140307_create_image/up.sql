@@ -1,0 +1,8 @@
+CREATE TABLE image(
+  id SERIAL PRIMARY KEY,
+  post INTEGER REFERENCES post(id),
+  section_index INTEGER NOT NULL,
+  image_name VARCHAR NOT NULL DEFAULT '',
+  caption VARCHAR NOT NULL DEFAULT '',
+  file_name VARCHAR NOT NULL
+)
