@@ -27,7 +27,7 @@ fn head() -> Markup {
         meta charset="utf-8" {}
         meta name="viewport" content="width=device-width, initial-scale=1" {}
         link href="/css/bootstrap.min.css" rel="stylesheet" {}
-        link href="/css/base.css" rel="stylesheet" {}
+        link href="/css/roggen.css" rel="stylesheet" {}
     }
 }
 
@@ -62,17 +62,25 @@ fn header(title: &Link) -> Markup {
                                     a class="nav-link" href=(page.path) { (page.title) }
                                 }
                             }
-                            li class="nav-item dropdown" {
-                                a class="nav-link dropdown-toggle" href="#" id="blogsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {
-                                    "Blogs"
-                                }
-                                ul class="dropdown-menu" aria-labelledby="blogsDropdown" {
-                                    li { a class="dropdown-item" href="/blog/moto" { "Moto" } }
-                                }
-                            }
+                            (blogs_dropdown())
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+fn blogs_dropdown() -> Markup {
+    html! {
+        li class="nav-item dropdown" {
+            a class="nav-link dropdown-toggle" href="#" id="blogsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {
+                "Blogs"
+            }
+            ul class="dropdown-menu" aria-labelledby="blogsDropdown" {
+                li { a class="dropdown-item" href="/blog/moto" { "Moto" } }
+                li { a class="dropdown-item" href="/blog/roggen" { "roggen" } }
+                li { a class="dropdown-item" href="/blog/tech" { "Tech" } }
             }
         }
     }
@@ -90,5 +98,8 @@ fn body_main(contents: Markup) -> Markup{
 
 fn footer() -> Markup {
     html! {
+        footer class="page-footer" {
+
+        }
     }
 }

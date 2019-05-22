@@ -1,0 +1,11 @@
+.blog-list li {
+    background: lightgreen;
+}
+
+.post-list {
+    list-style-type: none;
+}
+
+.post-list li {
+    background: yellow;
+}

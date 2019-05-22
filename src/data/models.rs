@@ -65,7 +65,7 @@ pub enum PostPart {
     Heading(Heading),
 }
 
-#[derive(Queryable)]
+#[derive(Clone, Queryable)]
 pub struct Post {
     pub id: i32,
     pub title: String,

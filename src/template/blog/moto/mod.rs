@@ -3,6 +3,7 @@ use rocket::Rocket;
 
 use crate::template::blog::{blog_home, embed_blog_contents};
 use crate::template::elements::Link;
+use crate::data::read::load_posts;
 
 static ROOT: &'static str = "/blog/moto";
 
@@ -16,7 +17,7 @@ pub fn mount(rocket: Rocket) -> Rocket {
 
 #[get("/")]
 fn index() -> Markup {
-    blog_home(&MOTO_TITLE, vec![])
+    blog_home(&MOTO_TITLE, &load_posts("moto"))
 }
 
 pub fn moto(page: Option<String>) -> Markup {
