@@ -33,8 +33,10 @@ pub fn render_post(post: &Post) -> Markup {
                 }
             }
             div class="col-sm-9 blog-main" {
-                @for part in &parts {
-                    (part.render())
+                div class="blog-post" {
+                    @for part in &parts {
+                        (part.render())
+                    }
                 }
             }
         }

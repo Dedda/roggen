@@ -8,9 +8,9 @@ pub trait PostRenderable {
 impl PostRenderable for Heading {
     fn render(&self) -> Markup {
         match self.heading_size {
-            1 => html! { h1 { a name=(format!("h-{}", self.id)) { (self.heading_text) } } },
-            2 => html! { h2 { a name=(format!("h-{}", self.id)) { (self.heading_text) } } },
-            _ => html! { h3 { a name=(format!("h-{}", self.id)) { (self.heading_text) } } },
+            1 => html! { h1 id=(format!("h-{}", self.id)) { (self.heading_text) } },
+            2 => html! { h2 id=(format!("h-{}", self.id)) { (self.heading_text) } },
+            _ => html! { h3 id=(format!("h-{}", self.id)) { (self.heading_text) } },
         }
     }
 }
