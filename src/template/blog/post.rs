@@ -22,12 +22,17 @@ pub fn render_post(post: &Post) -> Markup {
     }
     parts.sort_by(|a, b| a.index().partial_cmp(&b.index()).unwrap());
     html! {
+        div class="jumbotron" {
+            h1 { (post.title) }
+        }
         div class="row" {
             div class="col-sm-3 blog-sidebar" {
-                ol {
-                    @for heading in &headings {
-                        li {
-                            a href=(format!("#h-{}", heading.id)) { (heading.heading_text) }
+                div class="sidebar-module" {
+                    ol {
+                        @for heading in &headings {
+                            li {
+                                a href=(format!("#h-{}", heading.id)) { (heading.heading_text) }
+                            }
                         }
                     }
                 }

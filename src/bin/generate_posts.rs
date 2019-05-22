@@ -26,7 +26,7 @@ fn generate_post(conn: &PgConnection, blog: &str) {
 
 fn generate_headings(conn: &PgConnection, post_id: i32) {
     for index in 0..5 {
-        create_heading(conn, post_id.clone(), index * 2, &format!("Heading {}/{}", post_id, index), 1);
+        create_heading(conn, post_id.clone(), index * 2, &format!("Heading {}/{}", post_id, index), 2);
     }
 }
 

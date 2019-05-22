@@ -29,24 +29,29 @@ pub fn mount_blogs(rocket: Rocket) -> Rocket {
 }
 
 pub fn posts_overview(posts: &Vec<Post>) -> Markup {
+    let items: Vec<Markup> = posts.iter().map(|p| post_overview_item(p)).collect();
     match posts.len() {
         0 => html! {
             p { "No posts in this blog yet :/" }
         },
         _ => html! {
             ul class="post-list" {
-                @for post in posts {
-                    li { (overview_entry(post)) }
+                @for item in items {
+                    (item)
                 }
             }
         },
     }
 }
 
-pub fn overview_entry(post: &Post) -> Markup {
+fn post_overview_item(post: &Post) -> Markup {
     let link = format!("/blog/{}/{}", post.blog, post.id);
     html! {
-        a href=(link) { (post.title) }
+        li {
+            div class="post-list-item" {
+                a href=(link) { (post.title) }
+            }
+        }
     }
 }
 

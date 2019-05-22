@@ -13,7 +13,7 @@ lazy_static! {
     };
 }
 
-pub fn start_pool(url: String) -> Pool<ConnectionManager<PgConnection>> {
+fn start_pool(url: String) -> Pool<ConnectionManager<PgConnection>> {
     let manager = ConnectionManager::<PgConnection>::new(url);
     r2d2::Pool::builder()
         .max_size(20)
