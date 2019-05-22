@@ -1,7 +1,7 @@
 table! {
     heading (id) {
         id -> Int4,
-        post -> Nullable<Int4>,
+        post -> Int4,
         section_index -> Int4,
         heading_text -> Text,
         heading_size -> Int4,
@@ -11,7 +11,7 @@ table! {
 table! {
     image (id) {
         id -> Int4,
-        post -> Nullable<Int4>,
+        post -> Int4,
         section_index -> Int4,
         image_name -> Varchar,
         caption -> Varchar,
@@ -31,7 +31,7 @@ table! {
 table! {
     text_section (id) {
         id -> Int4,
-        post -> Nullable<Int4>,
+        post -> Int4,
         section_index -> Int4,
         section_text -> Text,
     }

@@ -18,7 +18,7 @@ use std::env;
 use diesel::prelude::*;
 use diesel::pg::PgConnection;
 use dotenv::dotenv;
-use crate::data::models::{Post, NewPost};
+use crate::data::models::{Post, NewPost, Heading, NewHeading, TextSection, NewTextSection};
 
 pub mod data;
 pub mod schema;
@@ -47,6 +47,33 @@ pub fn create_post(conn: &PgConnection, blog: &str, title: &str) -> Post {
         .values(&new_post)
         .get_result(conn)
         .expect("Error saving new post")
+}
+
+pub fn create_heading(conn: &PgConnection, post: i32, index: i32, text: &str, size: i32) -> Heading {
+    let new_heading = NewHeading {
+        post,
+        section_index: index,
+        heading_text: text.to_string(),
+        heading_size: size,
+    };
+    use schema::heading;
+    diesel::insert_into(heading::table)
+        .values(&new_heading)
+        .get_result(conn)
+        .expect("Error saving new heading")
+}
+
+pub fn create_text(conn: &PgConnection, post: i32, index: i32, text: &str) -> TextSection {
+    let new_text = NewTextSection {
+        post,
+        section_index: index,
+        section_text: text.to_string(),
+    };
+    use schema::text_section;
+    diesel::insert_into(text_section::table)
+        .values(&new_text)
+        .get_result(conn)
+        .expect("Error saving new text")
 }
 
 pub fn start() {

@@ -5,7 +5,9 @@ use crate::data::models::Post;
 use crate::template::elements::Link;
 use crate::template::page;
 
+pub mod post_renderable;
 pub mod moto;
+pub mod post;
 pub mod roggen;
 pub mod tech;
 
@@ -42,8 +44,9 @@ pub fn posts_overview(posts: &Vec<Post>) -> Markup {
 }
 
 pub fn overview_entry(post: &Post) -> Markup {
+    let link = format!("/blog/{}/{}", post.blog, post.id);
     html! {
-        (post.title)
+        a href=(link) { (post.title) }
     }
 }
 
