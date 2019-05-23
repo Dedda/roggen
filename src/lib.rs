@@ -1,6 +1,7 @@
 #![feature(proc_macro_hygiene)]
 #![feature(decl_macro)]
 
+extern crate chrono;
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
@@ -36,11 +37,7 @@ pub fn establish_connection() -> PgConnection {
 
 pub fn create_post(conn: &PgConnection, blog: &str, title: &str) -> Post {
 
-    let new_post = NewPost {
-        title: title.to_string(),
-        published: false,
-        blog: blog.to_string(),
-    };
+    let new_post = NewPost::new(title.to_string(), blog.to_string());
     use schema::post;
 
     diesel::insert_into(post::table)

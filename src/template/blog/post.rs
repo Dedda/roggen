@@ -21,26 +21,37 @@ pub fn render_post(post: &Post) -> Markup {
         parts.push(Box::new(t));
     }
     parts.sort_by(|a, b| a.index().partial_cmp(&b.index()).unwrap());
+    let published = match post.published {
+        Some(p) => p.format("%m/%d/%Y %H:%M:%S UTC").to_string(), //6/29/2011 4:52:48 PM
+        None => "".to_string()
+    };
     html! {
         div class="jumbotron" {
-            h1 { (post.title) }
+            div { h1 { (post.title) } }
+            div { small { "published: " span data-published=(published) {} } }
         }
         div class="row" {
-            div class="col-sm-3 blog-sidebar" {
-                div class="sidebar-module" {
-                    ol {
-                        @for heading in &headings {
-                            li {
-                                a href=(format!("#h-{}", heading.id)) { (heading.heading_text) }
-                            }
-                        }
-                    }
-                }
-            }
+            (sidebar(&headings))
             div class="col-sm-9 blog-main" {
                 div class="blog-post" {
                     @for part in &parts {
                         (part.render())
+                    }
+                }
+            }
+        }
+    }
+}
+
+fn sidebar(headings: &Vec<Heading>) -> Markup {
+    html! {
+        div class="col-sm-3 blog-sidebar" {
+            div class="sidebar-module" {
+                ol {
+                    @for heading in headings {
+                        li {
+                            a href=(format!("#h-{}", heading.id)) { (heading.heading_text) }
+                        }
                     }
                 }
             }

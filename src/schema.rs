@@ -23,8 +23,9 @@ table! {
     post (id) {
         id -> Int4,
         title -> Varchar,
-        published -> Bool,
+        published -> Nullable<Timestamp>,
         blog -> Varchar,
+        created -> Timestamp,
     }
 }
 

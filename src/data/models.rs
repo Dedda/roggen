@@ -1,4 +1,5 @@
 use crate::schema::*;
+use chrono::{NaiveDateTime, Utc};
 
 pub trait BelongsToPost {
     fn post_id(&self) -> i32;
@@ -69,16 +70,29 @@ pub enum PostPart {
 pub struct Post {
     pub id: i32,
     pub title: String,
-    pub published: bool,
+    pub published: Option<NaiveDateTime>,
     pub blog: String,
+    pub created: NaiveDateTime,
 }
 
 #[derive(Insertable)]
 #[table_name="post"]
 pub struct NewPost {
     pub title: String,
-    pub published: bool,
+    pub published: Option<NaiveDateTime>,
     pub blog: String,
+    pub created: NaiveDateTime,
+}
+
+impl NewPost {
+    pub fn new(title: String, blog: String) -> NewPost {
+        NewPost {
+            title,
+            published: None,
+            blog,
+            created: Utc::now().naive_utc(),
+        }
+    }
 }
 
 impl BelongsToPost for Image {

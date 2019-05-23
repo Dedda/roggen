@@ -12,7 +12,7 @@ fn main() {
 
     let pooled = get_pool().get().expect("Got no connection from pool");
     let connection = pooled.deref();
-    let results = post.filter(published.eq(true))
+    let results = post.filter(published.is_not_null())
         .limit(5)
         .load::<Post>(connection)
         .expect("Error loading posts");

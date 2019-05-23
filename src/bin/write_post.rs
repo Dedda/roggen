@@ -13,11 +13,7 @@ fn main() {
     let mut body = String::new();
     stdin().read_to_string(&mut body).unwrap();
 
-    let new_post = NewPost {
-        title: body,
-        published: false,
-        blog: title.to_string(),
-    };
+    let new_post = NewPost::new(body, title.to_string());
     let post = create_post(&new_post);
     println!("\nSaved draft {} with id {}", title, post.id);
 }

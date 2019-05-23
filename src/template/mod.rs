@@ -14,6 +14,7 @@ pub fn page(title: &Link, contents: Markup) -> Markup {
             body {
                 script src="/js/jquery-1.11.3.min.js" {}
                 script src="/js/bootstrap.min.js" {}
+                script src="/js/roggen.js" {}
                 (header(title))
                 (body_main(contents))
                 (footer())
