@@ -9,13 +9,8 @@ pub fn load_post(post_id: i32) -> Option<Post> {
 
     let pooled = get_pool().get().expect("Got no connection from pool");
     let connection = pooled.deref();
-//    let result = post.find(post_id).load::<Post>().expect("Error loading post");
-//    Some(result)
-    let results: Vec<Post> = post.filter(id.eq(post_id))
-        .limit(1)
-        .load::<Post>(connection)
-        .expect("Error loading posts");
-    match results.first() {
+    let result = post.find(post_id).load::<Post>(connection).expect("Error loading post");
+    match result.first() {
         Some(p) => Some(p.clone()),
         None => None,
     }
