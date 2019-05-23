@@ -2,6 +2,7 @@ use crate::data::models::{Post, Heading, BelongsToPost};
 use maud::Markup;
 use crate::template::blog::post_renderable::PostRenderable;
 use crate::data::read::{load_headings, load_images, load_texts};
+use crate::i18n::i18n;
 
 trait PostPart: PostRenderable + BelongsToPost {}
 impl<T> PostPart for T where T: PostRenderable + BelongsToPost {}
@@ -25,10 +26,11 @@ pub fn render_post(post: &Post) -> Markup {
         Some(p) => p.format("%m/%d/%Y %H:%M:%S UTC").to_string(), //6/29/2011 4:52:48 PM
         None => "".to_string()
     };
+    let pub_text = i18n("de", "published").or_else("published");
     html! {
         div class="jumbotron" {
             div { h1 { (post.title) } }
-            div { small { "published: " span data-published=(published) {} } }
+            div { small { (format!("{}: ", pub_text)) span data-published=(published) {} } }
         }
         div class="row" {
             (sidebar(&headings))

@@ -13,6 +13,7 @@ extern crate r2d2;
 extern crate r2d2_diesel;
 #[macro_use]
 extern crate rocket;
+extern crate uebersetzt;
 
 use std::env;
 
@@ -22,6 +23,7 @@ use dotenv::dotenv;
 use crate::data::models::{Post, NewPost, Heading, NewHeading, TextSection, NewTextSection};
 
 pub mod data;
+pub mod i18n;
 pub mod schema;
 pub mod server;
 pub mod template;
