@@ -2,7 +2,7 @@ use std::env;
 
 use diesel::PgConnection;
 use dotenv::dotenv;
-use r2d2::Pool;
+use r2d2::{Pool, PooledConnection};
 use r2d2_diesel::ConnectionManager;
 
 lazy_static! {
@@ -23,4 +23,9 @@ fn start_pool(url: String) -> Pool<ConnectionManager<PgConnection>> {
 
 pub fn get_pool() -> Pool<ConnectionManager<PgConnection>> {
     POOL.clone()
+}
+
+
+pub fn pooled_connection() -> PooledConnection<ConnectionManager<PgConnection>> {
+    get_pool().get().expect("Got no connection from pool")
 }

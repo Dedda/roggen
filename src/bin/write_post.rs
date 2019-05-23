@@ -1,12 +1,10 @@
-extern crate roggen;
 extern crate diesel;
 
-use self::roggen::*;
 use std::io::{stdin, Read};
+use roggen::data::models::NewPost;
+use roggen::data::write::create_post;
 
 fn main() {
-    let connection = establish_connection();
-
     println!("What would you like your title to be?");
     let mut title = String::new();
     stdin().read_line(&mut title).unwrap();
@@ -15,7 +13,12 @@ fn main() {
     let mut body = String::new();
     stdin().read_to_string(&mut body).unwrap();
 
-    let post = create_post(&connection, title, &body);
+    let new_post = NewPost {
+        title: body,
+        published: false,
+        blog: title.to_string(),
+    };
+    let post = create_post(&new_post);
     println!("\nSaved draft {} with id {}", title, post.id);
 }
 
