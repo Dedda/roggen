@@ -1,13 +1,14 @@
 use rocket::error::LaunchError;
 use maud::Markup;
 
-use crate::template;
+use crate::{template, get_lang};
 use rocket_contrib::serve::StaticFiles;
+use rocket::http::Cookies;
 use crate::template::blog::mount_blogs;
 
 #[get("/")]
-fn index() -> Markup {
-    template::index::index()
+fn index(cookie: Cookies) -> Markup {
+    template::index::index(get_lang(cookie))
 }
 
 pub fn ignite() -> LaunchError{

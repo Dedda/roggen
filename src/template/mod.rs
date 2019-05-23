@@ -4,8 +4,11 @@ use crate::template::elements::Link;
 pub mod blog;
 pub mod elements;
 pub mod index;
+pub mod language_selector;
 
-pub fn page(title: &Link, contents: Markup) -> Markup {
+use self::language_selector::language_selector;
+
+pub fn page(language: String, title: &Link, contents: Markup) -> Markup {
     html! {
         html lang="de" {
             head {
@@ -15,7 +18,7 @@ pub fn page(title: &Link, contents: Markup) -> Markup {
                 script src="/js/jquery-1.11.3.min.js" {}
                 script src="/js/bootstrap.min.js" {}
                 script src="/js/roggen.js" {}
-                (header(title))
+                (header(language, title))
                 (body_main(contents))
                 (footer())
             }
@@ -29,10 +32,11 @@ fn head() -> Markup {
         meta name="viewport" content="width=device-width, initial-scale=1" {}
         link href="/css/bootstrap.min.css" rel="stylesheet" {}
         link href="/css/roggen.css" rel="stylesheet" {}
+        link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet" {}
     }
 }
 
-fn header(title: &Link) -> Markup {
+fn header(language: String, title: &Link) -> Markup {
     struct NavPage {
         path: &'static str,
         title: &'static str,
@@ -65,6 +69,9 @@ fn header(title: &Link) -> Markup {
                             }
                             (blogs_dropdown())
                         }
+                        ul class="nav navbar-nav pull-right" {
+                            (language_selector(&language))
+                        }
                     }
                 }
             }
@@ -86,6 +93,7 @@ fn blogs_dropdown() -> Markup {
         }
     }
 }
+
 
 fn body_main(contents: Markup) -> Markup{
     html! {

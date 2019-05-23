@@ -3,12 +3,14 @@ use std::sync::{Arc, Mutex};
 
 use maud::Markup;
 use rocket::Rocket;
+use rocket::http::Cookies;
 
 use crate::data::models::Post;
 use crate::template::elements::Link;
 use crate::template::page;
 use crate::data::read::{load_posts, load_post};
 use crate::template::blog::post::render_post;
+use crate::get_lang;
 
 pub mod post_renderable;
 pub mod post;
@@ -51,13 +53,13 @@ fn get_blog<S>(name: S) -> Option<Blog> where S: ToString {
     }
 }
 
-fn embed_blog_contents(title: &Link, contents: Markup) -> Markup {
-    page(title, contents)
+fn embed_blog_contents(language: String, title: &Link, contents: Markup) -> Markup {
+    page(language, title, contents)
 }
 
-fn blog_home(blog: Blog) -> Markup {
+fn blog_home(language: String, blog: Blog) -> Markup {
     let posts = load_posts(&blog.path);
-    embed_blog_contents(&blog.title, posts_overview(&posts))
+    embed_blog_contents(language, &blog.title, posts_overview(&posts))
 }
 
 fn posts_overview(posts: &Vec<Post>) -> Markup {
@@ -92,8 +94,8 @@ fn blog_not_found() -> Markup {
 }
 
 #[get("/")]
-fn blog_list() -> Markup {
-    page(&Link::new("Blogs", "/blog"),
+fn blog_list(cookie: Cookies) -> Markup {
+    page(get_lang(cookie), &Link::new("Blogs", "/blog"),
          html! {
         ul class="blog-list" {
             li { a href="/blog/moto" { "Moto" } }
@@ -104,25 +106,26 @@ fn blog_list() -> Markup {
 }
 
 #[get("/<name>")]
-fn blog_main(name: String) -> Markup {
+fn blog_main(name: String, cookie: Cookies) -> Markup {
     match get_blog(name) {
-        Some(b) => blog_home(b),
+        Some(b) => blog_home(get_lang(cookie), b),
         None => blog_not_found(),
     }
 }
 
 #[get("/<blog>/<id>")]
-fn post(blog: String, id: i32) -> Markup {
+fn post(blog: String, id: i32, cookie: Cookies) -> Markup {
+    let lang = get_lang(cookie);
     match get_blog(blog) {
         Some(b) => {
             let contents = match load_post(id) {
-                Some(post) => render_post(&post),
+                Some(post) => render_post(lang.clone(), &post),
                 None => html! {
                     h1 { "Post not found!" }
                 }
             };
-            embed_blog_contents(&b.title, contents)
-        },
+            embed_blog_contents(lang, &b.title, contents)
+        }
         None => blog_not_found(),
     }
 }

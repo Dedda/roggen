@@ -18,4 +18,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             element.textContent = time.ddmmyyyy();
         }
     });
+    document.querySelectorAll('[data-toggle-language]').forEach(function(element) {
+        element.addEventListener('click', function() {
+            var lang = element.attributes['data-toggle-language'].value;
+            document.cookie = "selected-language=" + lang + ";path=/";
+            location.reload();
+        });
+    });
 });

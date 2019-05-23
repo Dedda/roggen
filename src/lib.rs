@@ -20,6 +20,7 @@ use std::env;
 use diesel::prelude::*;
 use diesel::pg::PgConnection;
 use dotenv::dotenv;
+use rocket::http::Cookies;
 use crate::data::models::{Post, NewPost, Heading, NewHeading, TextSection, NewTextSection};
 
 pub mod data;
@@ -27,6 +28,18 @@ pub mod i18n;
 pub mod schema;
 pub mod server;
 pub mod template;
+
+pub fn get_lang(cookie: Cookies) -> String {
+    let languages = vec!["en", "de"];
+    match cookie.get("selected-language") {
+        Some(c) => if languages.contains(&c.value()) {
+            c.value().to_string()
+        } else {
+            "en".to_string()
+        },
+        None => "en".to_string(),
+    }
+}
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
