@@ -89,6 +89,7 @@ fn blogs_dropdown() -> Markup {
                 li { a class="dropdown-item" href="/blog/moto" { "Moto" } }
                 li { a class="dropdown-item" href="/blog/roggen" { "roggen" } }
                 li { a class="dropdown-item" href="/blog/tech" { "Tech" } }
+                li { a class="dropdown-item" href="/blog/punchlines" { "Punchlines" } }
             }
         }
     }

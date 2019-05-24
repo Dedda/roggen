@@ -52,11 +52,15 @@ fn sidebar(headings: &Vec<Heading>) -> Markup {
                 ol {
                     @for heading in headings {
                         li {
-                            a href=(format!("#h-{}", heading.id)) { (heading.heading_text) }
+                            a href=(format!("#{}", heading_id(&heading))) { (heading.heading_text) }
                         }
                     }
                 }
             }
         }
     }
+}
+
+pub fn heading_id(heading: &Heading) -> String {
+    format!("h-{}", heading.id)
 }

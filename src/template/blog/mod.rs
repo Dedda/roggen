@@ -101,6 +101,7 @@ fn blog_list(cookie: Cookies) -> Markup {
             li { a href="/blog/moto" { "Moto" } }
             li { a href="/blog/roggen" { "Roggen" } }
             li { a href="/blog/tech" { "Tech" } }
+            li { a href="/blog/punchlines" { "Punchlines" } }
         }
     })
 }

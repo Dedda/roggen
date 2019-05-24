@@ -1,5 +1,6 @@
 use maud::Markup;
 use crate::data::models::{TextSection, Heading, Image};
+use crate::template::blog::post::heading_id;
 
 pub trait PostRenderable {
     fn render(&self) -> Markup;
@@ -7,10 +8,11 @@ pub trait PostRenderable {
 
 impl PostRenderable for Heading {
     fn render(&self) -> Markup {
+        let id = heading_id(self);
         match self.heading_size {
-            1 => html! { h1 id=(format!("h-{}", self.id)) { (self.heading_text) } },
-            2 => html! { h2 id=(format!("h-{}", self.id)) { (self.heading_text) } },
-            _ => html! { h3 id=(format!("h-{}", self.id)) { (self.heading_text) } },
+            1 => html! { h1 id=(id) { (self.heading_text) } },
+            2 => html! { h2 id=(id) { (self.heading_text) } },
+            _ => html! { h3 id=(id) { (self.heading_text) } },
         }
     }
 }
