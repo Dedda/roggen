@@ -16,5 +16,6 @@ pub fn ignite() -> LaunchError{
         .mount("/css", StaticFiles::from("web/css"))
         .mount("/js", StaticFiles::from("web/js"));
     let rocket = mount_blogs(rocket);
+    let rocket = crate::img::mount(rocket);
     rocket.mount("/", routes![index]).launch()
 }

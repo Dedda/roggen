@@ -33,6 +33,19 @@ pub fn load_headings(post_id: i32) -> Vec<Heading> {
         .expect("Error loading headings")
 }
 
+pub fn load_image(img_id: i32) -> Option<Image> {
+    use crate::schema::image::dsl::*;
+
+    let result = image
+        .find(img_id)
+        .load::<Image>(pooled_connection().deref())
+        .expect("Error loading post");
+    match result.first() {
+        Some(i) => Some(i.clone()),
+        None => None,
+    }
+}
+
 pub fn load_images(post_id: i32) -> Vec<Image> {
     use crate::schema::image::dsl::*;
 
@@ -48,3 +61,4 @@ pub fn load_texts(post_id: i32) -> Vec<TextSection> {
         .load::<TextSection>(pooled_connection().deref())
         .expect("Error loading headings")
 }
+

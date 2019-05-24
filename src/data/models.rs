@@ -6,7 +6,7 @@ pub trait BelongsToPost {
     fn index(&self) -> i32;
 }
 
-#[derive(Queryable)]
+#[derive(Clone, Queryable)]
 pub struct Image {
     pub id: i32,
     pub post: i32,

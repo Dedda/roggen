@@ -25,6 +25,7 @@ use crate::data::models::{Post, NewPost, Heading, NewHeading, TextSection, NewTe
 
 pub mod data;
 pub mod i18n;
+pub mod img;
 pub mod schema;
 pub mod server;
 pub mod template;
