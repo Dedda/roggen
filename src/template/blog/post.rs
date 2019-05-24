@@ -49,7 +49,7 @@ fn sidebar(headings: &Vec<Heading>) -> Markup {
     html! {
         div class="col-sm-3 blog-sidebar" {
             div class="sidebar-module" {
-                ol {
+                ol class="post-section-list" {
                     @for heading in headings {
                         li {
                             a href=(format!("#{}", heading_id(&heading))) { (heading.heading_text) }

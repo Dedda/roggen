@@ -23,3 +23,17 @@
 .post-list-item a:hover {
     color: #666666;
 }
+
+.post-section-list {
+    list-style-type: none;
+}
+
+.post-section-list a {
+    font-size: large;
+    color: #333333;
+    text-decoration: none;
+}
+
+.post-section-list a:hover {
+    color: #666666;
+}
