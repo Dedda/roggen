@@ -27,7 +27,7 @@ cargo run --bin run_server
 cargo run --release --bin run_server
 ```
 
-### Developed
+### Development
 
 Keep in mind that this software is still in early development. As soon
 as it reaches a state where i can safely launch it without risking
