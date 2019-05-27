@@ -89,8 +89,10 @@ fn post_overview_item(post: &Post) -> Markup {
     }
 }
 
-fn blog_not_found() -> Markup {
-    html! {}
+fn blog_not_found(name: &str) -> Markup {
+    html! {
+        div { p { (format!("Blog not found: {}", name)) } }
+    }
 }
 
 #[get("/")]
@@ -108,16 +110,16 @@ fn blog_list(cookie: Cookies) -> Markup {
 
 #[get("/<name>")]
 fn blog_main(name: String, cookie: Cookies) -> Markup {
-    match get_blog(name) {
+    match get_blog(&name) {
         Some(b) => blog_home(get_lang(cookie), b),
-        None => blog_not_found(),
+        None => blog_not_found(&name),
     }
 }
 
 #[get("/<blog>/<id>")]
 fn post(blog: String, id: i32, cookie: Cookies) -> Markup {
     let lang = get_lang(cookie);
-    match get_blog(blog) {
+    match get_blog(&blog) {
         Some(b) => {
             let contents = match load_post(id) {
                 Some(post) => render_post(lang.clone(), &post),
@@ -127,6 +129,6 @@ fn post(blog: String, id: i32, cookie: Cookies) -> Markup {
             };
             embed_blog_contents(lang, &b.title, contents)
         }
-        None => blog_not_found(),
+        None => blog_not_found(&blog),
     }
 }
