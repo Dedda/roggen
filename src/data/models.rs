@@ -6,7 +6,7 @@ pub trait BelongsToPost {
     fn index(&self) -> i32;
 }
 
-#[derive(Clone, Queryable)]
+#[derive(Clone, Debug, PartialEq, Queryable)]
 pub struct Image {
     pub id: i32,
     pub post: i32,
@@ -26,7 +26,7 @@ pub struct NewImage {
     pub file_name: String,
 }
 
-#[derive(Queryable)]
+#[derive(Clone, Debug, PartialEq, Queryable)]
 pub struct TextSection {
     pub id: i32,
     pub post: i32,
@@ -42,7 +42,7 @@ pub struct NewTextSection {
     pub section_text: String,
 }
 
-#[derive(Queryable)]
+#[derive(Clone, Debug, PartialEq, Queryable)]
 pub struct Heading {
     pub id: i32,
     pub post: i32,
@@ -66,7 +66,7 @@ pub enum PostPart {
     Heading(Heading),
 }
 
-#[derive(Clone, Queryable)]
+#[derive(Clone, Debug, PartialEq, Queryable)]
 pub struct Post {
     pub id: i32,
     pub title: String,
