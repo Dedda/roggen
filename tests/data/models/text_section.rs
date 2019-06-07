@@ -1,7 +1,7 @@
-use roggen::data::write::{create_post, create_text_section};
-use roggen::data::models::{NewPost, NewTextSection};
 use roggen::data::delete::{delete_post, delete_text_section};
+use roggen::data::models::{NewPost, NewTextSection};
 use roggen::data::read::load_text;
+use roggen::data::write::{create_post, create_text_section};
 
 #[test]
 fn create_read_delete_image() {

@@ -1,5 +1,5 @@
-extern crate roggen;
 extern crate diesel;
+extern crate roggen;
 
 use self::diesel::prelude::*;
 use self::roggen::*;

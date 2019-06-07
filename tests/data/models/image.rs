@@ -1,7 +1,7 @@
-use roggen::data::write::{create_post, create_image};
-use roggen::data::models::{NewPost, NewImage};
-use roggen::data::delete::{delete_post, delete_image};
+use roggen::data::delete::{delete_image, delete_post};
+use roggen::data::models::{NewImage, NewPost};
 use roggen::data::read::load_image;
+use roggen::data::write::{create_image, create_post};
 
 #[test]
 fn create_read_delete_image() {
@@ -9,7 +9,7 @@ fn create_read_delete_image() {
     let post = create_post(&new_post);
     let section_index = 2;
     let image_name = "".to_string();
-    let caption= "".to_string();
+    let caption = "".to_string();
     let file_name = "".to_string();
     let img = NewImage {
         post: post.id.clone(),

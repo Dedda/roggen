@@ -1,7 +1,7 @@
-use roggen::data::write::{create_post, create_heading};
-use roggen::data::models::{NewPost, NewHeading};
-use roggen::data::delete::{delete_post, delete_heading};
+use roggen::data::delete::{delete_heading, delete_post};
+use roggen::data::models::{NewHeading, NewPost};
 use roggen::data::read::load_heading;
+use roggen::data::write::{create_heading, create_post};
 
 #[test]
 fn create_read_delete_heading() {

@@ -1,7 +1,7 @@
-use roggen::data::write::create_post;
-use roggen::data::models::NewPost;
 use roggen::data::delete::delete_post;
+use roggen::data::models::NewPost;
 use roggen::data::read::load_post;
+use roggen::data::write::create_post;
 
 #[test]
 fn create_read_delete_post() {

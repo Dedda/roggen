@@ -2,18 +2,18 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use maud::Markup;
-use rocket::Rocket;
 use rocket::http::Cookies;
+use rocket::Rocket;
 
 use crate::data::models::Post;
+use crate::data::read::{load_post, load_posts};
+use crate::get_lang;
+use crate::template::blog::post::render_post;
 use crate::template::elements::Link;
 use crate::template::page;
-use crate::data::read::{load_posts, load_post};
-use crate::template::blog::post::render_post;
-use crate::get_lang;
 
-pub mod post_renderable;
 pub mod post;
+pub mod post_renderable;
 
 lazy_static! {
     static ref BLOGS: Arc<Mutex<HashMap<String, Blog>>> = {
@@ -33,7 +33,10 @@ struct Blog {
 }
 
 impl Blog {
-    fn for_name<S>(name: S) -> Blog where S: ToString {
+    fn for_name<S>(name: S) -> Blog
+    where
+        S: ToString,
+    {
         Blog {
             name: name.to_string(),
             path: name.to_string().to_ascii_lowercase(),
@@ -46,7 +49,10 @@ pub fn mount_blogs(rocket: Rocket) -> Rocket {
     rocket.mount("/blog", routes![post, blog_main, blog_list])
 }
 
-fn get_blog<S>(name: S) -> Option<Blog> where S: ToString {
+fn get_blog<S>(name: S) -> Option<Blog>
+where
+    S: ToString,
+{
     match BLOGS.lock().unwrap().get(&name.to_string()) {
         Some(b) => Some(b.clone()),
         None => None,
@@ -97,15 +103,18 @@ fn blog_not_found(name: &str) -> Markup {
 
 #[get("/")]
 fn blog_list(cookie: Cookies) -> Markup {
-    page(get_lang(cookie), &Link::new("Blogs", "/blog"),
-         html! {
-        ul class="blog-list" {
-            li { a href="/blog/moto" { "Moto" } }
-            li { a href="/blog/roggen" { "Roggen" } }
-            li { a href="/blog/tech" { "Tech" } }
-            li { a href="/blog/punchlines" { "Punchlines" } }
-        }
-    })
+    page(
+        get_lang(cookie),
+        &Link::new("Blogs", "/blog"),
+        html! {
+            ul class="blog-list" {
+                li { a href="/blog/moto" { "Moto" } }
+                li { a href="/blog/roggen" { "Roggen" } }
+                li { a href="/blog/tech" { "Tech" } }
+                li { a href="/blog/punchlines" { "Punchlines" } }
+            }
+        },
+    )
 }
 
 #[get("/<name>")]
@@ -125,7 +134,7 @@ fn post(blog: String, id: i32, cookie: Cookies) -> Markup {
                 Some(post) => render_post(lang.clone(), &post),
                 None => html! {
                     h1 { "Post not found!" }
-                }
+                },
             };
             embed_blog_contents(lang, &b.title, contents)
         }

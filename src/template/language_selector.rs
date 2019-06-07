@@ -31,6 +31,6 @@ fn icon_name(lang: &str) -> String {
 fn lang(code: &str) -> &'static str {
     match code {
         "de" => " Deutsch",
-        _ => " English"
+        _ => " English",
     }
 }

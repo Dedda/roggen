@@ -1,5 +1,5 @@
-use maud::Markup;
 use crate::template::elements::Link;
+use maud::Markup;
 
 pub mod blog;
 pub mod elements;
@@ -41,12 +41,10 @@ fn header(language: String, title: &Link) -> Markup {
         path: &'static str,
         title: &'static str,
     }
-    let pages = vec![
-        NavPage {
-            path: "/",
-            title: "Home",
-        }
-    ];
+    let pages = vec![NavPage {
+        path: "/",
+        title: "Home",
+    }];
     html! {
         nav {
             nav id="navigation-bar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" {
@@ -95,8 +93,7 @@ fn blogs_dropdown() -> Markup {
     }
 }
 
-
-fn body_main(contents: Markup) -> Markup{
+fn body_main(contents: Markup) -> Markup {
     html! {
         div class="container" {
             div class="jumbotron" {

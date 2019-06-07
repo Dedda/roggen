@@ -17,11 +17,11 @@ extern crate uebersetzt;
 
 use std::env;
 
-use diesel::prelude::*;
+use crate::data::models::{Heading, NewHeading, NewPost, NewTextSection, Post, TextSection};
 use diesel::pg::PgConnection;
+use diesel::prelude::*;
 use dotenv::dotenv;
 use rocket::http::Cookies;
-use crate::data::models::{Post, NewPost, Heading, NewHeading, TextSection, NewTextSection};
 
 pub mod data;
 pub mod i18n;
@@ -33,11 +33,13 @@ pub mod template;
 pub fn get_lang(cookie: Cookies) -> String {
     let languages = vec!["en", "de"];
     match cookie.get("selected-language") {
-        Some(c) => if languages.contains(&c.value()) {
-            c.value().to_string()
-        } else {
-            "en".to_string()
-        },
+        Some(c) => {
+            if languages.contains(&c.value()) {
+                c.value().to_string()
+            } else {
+                "en".to_string()
+            }
+        }
         None => "en".to_string(),
     }
 }
@@ -45,14 +47,11 @@ pub fn get_lang(cookie: Cookies) -> String {
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set in .env");
-    PgConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set in .env");
+    PgConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }
 
 pub fn create_post(conn: &PgConnection, blog: &str, title: &str) -> Post {
-
     let new_post = NewPost::new(title.to_string(), blog.to_string());
     use schema::post;
 
@@ -62,7 +61,13 @@ pub fn create_post(conn: &PgConnection, blog: &str, title: &str) -> Post {
         .expect("Error saving new post")
 }
 
-pub fn create_heading(conn: &PgConnection, post: i32, index: i32, text: &str, size: i32) -> Heading {
+pub fn create_heading(
+    conn: &PgConnection,
+    post: i32,
+    index: i32,
+    text: &str,
+    size: i32,
+) -> Heading {
     let new_heading = NewHeading {
         post,
         section_index: index,

@@ -1,6 +1,6 @@
-use maud::Markup;
-use crate::data::models::{TextSection, Heading, Image};
+use crate::data::models::{Heading, Image, TextSection};
 use crate::template::blog::post::heading_id;
+use maud::Markup;
 
 pub trait PostRenderable {
     fn render(&self) -> Markup;

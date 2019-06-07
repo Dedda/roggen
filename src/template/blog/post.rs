@@ -1,8 +1,8 @@
-use crate::data::models::{Post, Heading, BelongsToPost};
-use maud::Markup;
-use crate::template::blog::post_renderable::PostRenderable;
+use crate::data::models::{BelongsToPost, Heading, Post};
 use crate::data::read::{load_headings, load_images, load_texts};
 use crate::i18n::i18n;
+use crate::template::blog::post_renderable::PostRenderable;
+use maud::Markup;
 
 trait PostPart: PostRenderable + BelongsToPost {}
 impl<T> PostPart for T where T: PostRenderable + BelongsToPost {}
@@ -24,7 +24,7 @@ pub fn render_post(language: String, post: &Post) -> Markup {
     parts.sort_by(|a, b| a.index().partial_cmp(&b.index()).unwrap());
     let published = match post.published {
         Some(p) => p.format("%m/%d/%Y %H:%M:%S UTC").to_string(), //6/29/2011 4:52:48 PM
-        None => "".to_string()
+        None => "".to_string(),
     };
     let pub_text = i18n(&language, "published").or_else("published");
     html! {

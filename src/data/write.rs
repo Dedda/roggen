@@ -1,8 +1,8 @@
 use std::ops::Deref;
 
+use crate::data::connections::pooled_connection;
 use crate::data::models::*;
 use crate::schema::*;
-use crate::data::connections::pooled_connection;
 use diesel::query_dsl::RunQueryDsl;
 
 pub fn create_post(new_post: &NewPost) -> Post {

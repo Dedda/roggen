@@ -1,6 +1,6 @@
-use crate::*;
 use crate::data::connections::pooled_connection;
 use crate::data::models::*;
+use crate::*;
 
 use std::ops::Deref;
 

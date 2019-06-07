@@ -17,7 +17,7 @@ pub struct Image {
 }
 
 #[derive(Insertable)]
-#[table_name="image"]
+#[table_name = "image"]
 pub struct NewImage {
     pub post: i32,
     pub section_index: i32,
@@ -35,7 +35,7 @@ pub struct TextSection {
 }
 
 #[derive(Insertable)]
-#[table_name="text_section"]
+#[table_name = "text_section"]
 pub struct NewTextSection {
     pub post: i32,
     pub section_index: i32,
@@ -52,7 +52,7 @@ pub struct Heading {
 }
 
 #[derive(Insertable)]
-#[table_name="heading"]
+#[table_name = "heading"]
 pub struct NewHeading {
     pub post: i32,
     pub section_index: i32,
@@ -76,7 +76,7 @@ pub struct Post {
 }
 
 #[derive(Insertable)]
-#[table_name="post"]
+#[table_name = "post"]
 pub struct NewPost {
     pub title: String,
     pub published: Option<NaiveDateTime>,
@@ -124,7 +124,6 @@ impl BelongsToPost for Heading {
         self.section_index
     }
 }
-
 
 impl BelongsToPost for NewImage {
     fn post_id(&self) -> i32 {
